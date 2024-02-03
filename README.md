@@ -4,7 +4,9 @@
 ## 本仓库所有插件已编译IPK下载
 ### 使用软件源请删除 opkg配置(/etc/opkg.conf) 中的 option check_signature
 
-src-git kidpackage  https://github.com/kiddin9/openwrt-packages
+
+
+ sed -i '$a src-git kidpackage  https://github.com/kiddin9/openwrt-packages' feeds.conf.default
 
 
 
