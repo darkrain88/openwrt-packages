@@ -342,6 +342,21 @@ return view.extend({
 		o = s.taboption('custom_domain', form.SectionValue, 'domain', form.GridSection, 'domain', null,
 			_('Define a custom domain name and the corresponding PTR record'));
 
+		ss = o.subsection;
+		ss.addremove = true;
+		ss.anonymous = true;
+
+		so = ss.option(form.Value, 'name', _('Domain Name'));
+		so.datatype = 'hostname';
+		so.rmempty  = true;
+
+		so = ss.option(form.Value, 'ip', _('<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Address'));
+		so.datatype = 'or(ip4addr,"ignore")';
+		so.rmempty  = true;
+
+		so = ss.option(form.Value, 'comments', _('Comments'));
+		so.rmempty  = true;
+
 		s.taboption('filteropts', form.Flag, 'domainneeded',
 			_('Domain required'),
 			_('Never forward DNS queries which lack dots or domain parts.') + '<br />' +
@@ -398,7 +413,7 @@ return view.extend({
 		o.value('-', _('stderr'));
 
 		o = s.taboption('forward', form.DynamicList, 'server',
-			_('DNS forwardings'),
+			_('DNS Forwards'),
 			_('Forward specific domain queries to specific upstream servers.'));
 		o.optional = true;
 		o.placeholder = '/*.example.org/10.1.2.3';
@@ -804,7 +819,8 @@ return view.extend({
 		so.optional = true;
 
 		Object.values(L.uci.sections('dhcp', 'dnsmasq')).forEach(function(val, index) {
-			so.value(generateDnsmasqInstanceEntry(val));
+			var name, display_str = generateDnsmasqInstanceEntry(val);
+			so.value(index, display_str);
 		});
 
 		o = s.taboption('srvhosts', form.SectionValue, '__srvhosts__', form.TableSection, 'srvhost', null,
@@ -886,7 +902,7 @@ return view.extend({
 
 		so = ss.option(form.Value, 'cname', _('Domain'));
 		so.rmempty = false;
-		so.datatype = 'hostname';
+		so.validate = validateHostname;
 		so.placeholder = 'www.example.com.';
 
 		so = ss.option(form.Value, 'target', _('Target'));
@@ -1082,7 +1098,8 @@ return view.extend({
 		so.optional = true;
 
 		Object.values(L.uci.sections('dhcp', 'dnsmasq')).forEach(function(val, index) {
-			so.value(generateDnsmasqInstanceEntry(val));
+			var name, display_str = generateDnsmasqInstanceEntry(val);
+			so.value(index, display_str);
 		});
 
 
@@ -1159,7 +1176,7 @@ return view.extend({
 
 								return [
 									host || '-',
-									lease.ip6addrs ? lease.ip6addrs.join(' ') : lease.ip6addr,
+									lease.ip6addrs ? lease.ip6addrs.join('<br />') : lease.ip6addr,
 									lease.duid,
 									exp
 								];

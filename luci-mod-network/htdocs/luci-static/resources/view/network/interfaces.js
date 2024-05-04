@@ -555,6 +555,11 @@ return view.extend({
 				tdEl.lastChild.childNodes[3].disabled = true;
 			}
 
+			if (dynamic) {
+				//disable the 'Edit' button on dynamic interfaces
+				tdEl.lastChild.childNodes[2].disabled = true;
+			}
+
 			return tdEl;
 		};
 
@@ -607,6 +612,9 @@ return view.extend({
 				o.optional = false;
 				o.network = ifc.getName();
 				o.exclude = '@' + ifc.getName();
+
+				o = s.taboption('general', form.Flag, 'disabled', _('Disable this interface'));
+				o.modalonly = true;
 
 				o = s.taboption('general', form.Flag, 'auto', _('Bring up on boot'));
 				o.modalonly = true;

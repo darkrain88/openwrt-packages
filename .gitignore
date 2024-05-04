@@ -15,6 +15,8 @@
 /luci-app-k3screenctrl
 /luci-app-serverchan
 /luci-app-eqos
+/luci-app-webdav
+/luci-app-baidupcs-web
 /mentohust
 /subweb
 /wget
@@ -40,3 +42,5 @@
 /nat64
 /dns-proxy
 /ddns-scripts_*
+/asterisk-chan-quectel
+

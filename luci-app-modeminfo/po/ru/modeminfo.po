@@ -57,11 +57,10 @@ msgstr "Оператор"
 msgid "Status"
 msgstr "Состояние"
 
-
 msgid "Modeminfo: Hardware"
 msgstr "Модеминфо: Устройство"
 
-msgid "Hardware and sim card info."
+msgid "Hardware and sim-card info."
 msgstr "Информация о модеме и сим-карте"
 
 msgid "Device"
@@ -138,3 +137,6 @@ msgstr "Интервал обновления данных"
 
 msgid "General option"
 msgstr "Общие настройки"
+
+msgid "Devices setup"
+msgstr "Настройки устройств"
